@@ -2,18 +2,34 @@
   "name": "Koggle",
   "description": "Boggle as a React component",
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "source": "src/Boggle.jsx",
-  "main": "dist/main.js",
-  "module": "dist/module.js",
+  "main": "dist/package/Boggle.js",
+  "type": "module",
+  "types": "dist/package/Boggle.d.ts",
+  "targets": {
+    "package": {
+      "source": "src/Boggle.jsx",
+      "isLibrary": true,
+      "context": "browser",
+      "outputFormat": "esmodule"
+    },
+    "pages": {
+      "source": "src/index.html",
+      "isLibrary": false,
+      "context": "browser",
+      "outputFormat": "esmodule"
+    }
+  },
   "scripts": {
-    "start": "parcel 'src/index.html'",
-    "build": "npm run check && parcel build",
-    "check": "tsc --noEmit",
+    "start": "parcel serve --target pages",
+    "build": "npm run check && parcel build --target package",
+    "build-pages": "npm run check && parcel build --target pages",
+    "check": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "ISC",
   "devDependencies": {
     "@parcel/bundler-experimental": "^2.7.0",
+    "@parcel/config-default": "^2.11.0",
     "@parcel/transformer-sass": "^2.9.3",
     "bootstrap-icons": "^1.10.5",
     "parcel": "^2.9.3",
