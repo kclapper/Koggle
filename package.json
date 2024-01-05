@@ -1,8 +1,12 @@
 {
   "name": "Koggle",
+  "version": "0.1.0",
   "description": "Boggle as a React component",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "main": "dist/package/Boggle.js",
+  "files": [
+    "dist/package/*"
+  ],
   "type": "module",
   "types": "dist/package/Boggle.d.ts",
   "targets": {
@@ -26,7 +30,16 @@
     "check": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "license": "ISC",
+  "author": "kclapper",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kclapper/Koggle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kclapper/Koggle/issues"
+  },
+  "homepage": "https://boggle.kyleclapper.com",
   "devDependencies": {
     "@parcel/bundler-experimental": "^2.7.0",
     "@parcel/config-default": "^2.11.0",
