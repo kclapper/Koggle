@@ -1,23 +1,23 @@
 import {
-  StrictMode,
   useState,
   useEffect
 } from "react";
-import { createRoot } from 'react-dom/client';
 
 import Button from 'react-bootstrap/Button';
 
 import "bootstrap/scss/bootstrap.scss";
 
-import PageContent from './components/PageContent';
+import { GameEvent, Listener } from './Controller';
 
-import { BoggleController } from './BoggleController';
+import { BoggleController} from './BoggleController';
 
-function msUntil(date) {
-  return Math.max(date - Date.now(), 0);
+type Children = { children: React.ReactNode };
+
+function msUntil(date: Date) {
+    return Math.max(date.getTime() - Date.now(), 0);
 }
 
-function Board() {
+export function Boggle() {
   const controller = BoggleController.getInstance();
 
   const [letters, setLetters] = useState(controller.getLetters());
@@ -26,7 +26,7 @@ function Board() {
   const [inProgress, setInProgress] = useState(false);
 
   useEffect(() => {
-    const handler = (event) => {
+    const handler = (event: CustomEvent) => {
       setLetters(event.detail.letters);
       setEndTime(event.detail.endTime);
       setMsLeft(msUntil(event.detail.endTime));
@@ -40,7 +40,7 @@ function Board() {
   }, [setLetters, setEndTime, setMsLeft]);
 
   useEffect(() => {
-    const handler = (event) => {
+    const handler = (event: CustomEvent) => {
       setLetters(event.detail.letters);
       setEndTime(event.detail.endTime);
       setMsLeft(0);
@@ -62,7 +62,7 @@ function Board() {
 
         if (nextMs <= 0 && inProgress) {
           setInProgress(false);
-          const alarm = new Audio(new URL('./alarm.wav', import.meta.url));
+          const alarm = new Audio(new URL('./alarm.wav', import.meta.url) as any as string);
           alarm.play();
         }
       }
@@ -111,7 +111,7 @@ function Board() {
          </div>
 }
 
-function CountDown({ miliseconds }) {
+function CountDown({ miliseconds }: { miliseconds: number }) {
   const seconds = Math.floor(miliseconds / 1000) % 60;
   const minutes = Math.floor((miliseconds / 1000) / 60);
 
@@ -122,40 +122,25 @@ function CountDown({ miliseconds }) {
          </div>
 }
 
-function BoardRow({ children }) {
+function BoardRow({ children }: Children) {
   return <div className="d-flex flex-row justify-content-center">
            { children }
          </div>
 }
 
-function Letter({ children }) {
+
+function Letter({ children }: Children): React.JSX.Element {
   const size = "15vmin";
   const maxSize = "125px"
-  return <div className="d-flex flex-column border rounded"
-              style={{ height: size,
-                       width: size,
-                       maxHeight: maxSize,
-                       maxWidth: maxSize}}>
-           <h2 className="display-2 text-center my-auto">
-             { children }
-           </h2>
-         </div>
+  return (
+    <div className="d-flex flex-column border rounded"
+         style={{ height: size,
+                  width: size,
+                  maxHeight: maxSize,
+                  maxWidth: maxSize}}>
+      <h2 className="display-2 text-center my-auto">
+        { children }
+      </h2>
+    </div>
+  )
 }
-
-export default function Home() {
-  return <StrictMode>
-           <PageContent>
-             <h1 className="display-1 text-center mb-2">
-               Boggle
-             </h1>
-
-             <Board />
-
-             <div className="text-end mt-4 mb-4 fst-italic fs-6 w-75">
-               - Love Kyle
-             </div>
-           </PageContent>
-         </StrictMode>;
-}
-
-createRoot(document.getElementById('app')).render(<Home />);
