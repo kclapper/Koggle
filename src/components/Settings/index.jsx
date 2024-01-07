@@ -50,6 +50,7 @@ export function Settings({ onChange }) {
                            value={ settings.variant }>
                 <option value="4x4">Boggle (4 x 4)</option>
                 <option value="5x5">Big Boggle (5 x 5)</option>
+                <option value="Es">Oops all E's</option>
               </Form.Select>
           </div>
         </OffCanvas.Body>

@@ -5,12 +5,13 @@ import "bootstrap/scss/bootstrap.scss";
 import { Controller } from './controllers/Controller';
 import { RegularBoggle } from './controllers/RegularBoggle';
 import { BigBoggle } from './controllers/BigBoggle';
+import { AllEs } from './controllers/AllEs';
 
 import Countdown from './components/Countdown';
 import Board from './components/Board';
 import StartStop from './components/StartStop';
 
-type BoggleVariant = "4x4" | "5x5";
+type BoggleVariant = "4x4" | "5x5" | "Es";
 
 function getController(variant: BoggleVariant): Controller {
   switch (variant) {
@@ -18,6 +19,8 @@ function getController(variant: BoggleVariant): Controller {
       return RegularBoggle.getInstance();
     case "5x5":
       return BigBoggle.getInstance();
+    case "Es":
+      return AllEs.getInstance();
   }
 }
 
