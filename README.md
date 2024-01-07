@@ -18,3 +18,10 @@ export default function MyApp() {
     )
 }
 ```
+
+### Props
+
+| Prop | Value | Description |
+|------|-------|-------------|
+| `variant` | "4x4" or "5x5" | Determines which Boggle game variant to use. Default is "4x4" |
+| `controller` | A `Controller` object | Supercedes `variant`, specify a custom game controller | 
