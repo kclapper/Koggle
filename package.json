@@ -1,6 +1,6 @@
 {
   "name": "koggle",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Boggle as a React component",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "main": "dist/package/Boggle.js",
