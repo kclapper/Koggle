@@ -20,14 +20,10 @@ export default function Home() {
               <Settings onChange={handleChange} />
 
               <h1 className="display-1 text-center mb-2">
-                Boggle
+                Koggle
               </h1>
 
               <Boggle variant={ variant } />
-
-              <div className="text-end mt-4 mb-4 fst-italic fs-6 w-75">
-                - Love Kyle
-              </div>
             </PageContent>
          </StrictMode>;
 }

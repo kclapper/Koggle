@@ -1,20 +1,25 @@
 {
   "name": "koggle",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Boggle as a React component",
   "browserslist": "> 0.5%, last 2 versions, not dead",
+  "type": "module",
   "main": "dist/package/Boggle.js",
+  "module": "dist/package/Boggle.js",
+  "export": "dist/package/Boggle.js",
+  "types": "dist/package/Boggle.d.ts",
   "files": [
     "dist/package/*"
   ],
-  "type": "module",
-  "types": "dist/package/Boggle.d.ts",
   "targets": {
     "package": {
       "source": "src/Boggle.tsx",
       "isLibrary": true,
       "context": "browser",
-      "outputFormat": "esmodule"
+      "outputFormat": "esmodule",
+      "includeNodeModules": {
+        "react": false
+      }
     },
     "pages": {
       "source": "src/index.html",
@@ -46,6 +51,7 @@
     "@parcel/transformer-sass": "^2.9.3",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
+    "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.3",
     "parcel": "^2.9.3",
     "process": "^0.11.10",
@@ -53,9 +59,7 @@
     "sharp": "^0.31.3",
     "typescript": "^5.3.3"
   },
-  "dependencies": {
-    "bootstrap": "^5.3.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+  "peerDependencies": {
+    "react": "^18.2.0"
   }
 }
