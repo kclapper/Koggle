@@ -2,19 +2,15 @@ import { useState, useCallback } from 'react';
 
 import Button from 'react-bootstrap/Button';
 
-type StartStopProps = { onStart: () => void, onStop: () => void };
-export default function StartStop({ onStart, onStop }: StartStopProps) {
-  const [started, setStarted] = useState(false);
-
+type StartStopProps = { started: boolean, onStart: () => void, onStop: () => void };
+export default function StartStop({ started, onStart, onStop }: StartStopProps) {
   const handleStart = useCallback(() => {
-    setStarted(true);
     onStart();
-  }, [setStarted, onStart]);
+  }, [onStart]);
 
   const handleStop = useCallback(() => {
-    setStarted(false);
     onStop();
-  }, [setStarted, onStop]);
+  }, [onStop]);
 
   const startButton = <Button onClick={handleStart} size="lg">
                         Start

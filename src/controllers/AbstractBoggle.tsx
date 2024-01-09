@@ -29,7 +29,7 @@ export abstract class AbstractBoggle implements Controller {
     return String.fromCharCode(charCode);
   }
 
-  public getLetters() {
+  public getBoard() {
     return this.letters;
   }
 

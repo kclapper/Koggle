@@ -11,7 +11,10 @@ import Countdown from './components/Countdown';
 import Board from './components/Board';
 import StartStop from './components/StartStop';
 
-type BoggleVariant = "4x4" | "5x5" | "Es";
+import { Solver } from './solver/Solver';
+
+import { BoggleVariant } from "./util";
+import { Solution } from "./components/Solution";
 
 function getController(variant: BoggleVariant): Controller {
   switch (variant) {
@@ -27,19 +30,22 @@ function getController(variant: BoggleVariant): Controller {
 type BoggleProps = { variant?: BoggleVariant, controller: Controller }
 export function Boggle({ variant = "4x4", controller = getController(variant) }: BoggleProps) {
   const [endTime, setEndTime] = useState(new Date());
+  const [solution, setSolution] = useState<string[] | undefined>(undefined);
 
   useEffect(() => {
     const handler = (event: CustomEvent) => {
       setEndTime(event.detail.endTime);
+      setSolution(new Solver(controller).possibleWords());
     }
     controller.addEventListener('gameStart', handler);
     controller.addEventListener('gameStop', handler);
 
     return () => {
+      setSolution(undefined);
       controller.removeEventListener('gameStart', handler);
       controller.removeEventListener('gameStop', handler);
     }
-  }, [controller, setEndTime]);
+  }, [controller, setEndTime, setSolution]);
 
   useEffect(() => {
     const handler = (event: CustomEvent) => {
@@ -63,13 +69,18 @@ export function Boggle({ variant = "4x4", controller = getController(variant) }:
     controller.stopGame();
   }, [controller]);
 
+  const inProgress = endTime > new Date();
+
   return (
     <div>
      <Countdown endTime={ endTime }/>
 
-     <Board letters={ controller.getLetters() } size={ controller.getSize() } />
+     <Board letters={ controller.getBoard() } size={ controller.getSize() } />
 
-     <StartStop onStart={handleStart} onStop={handleStop} />
+     <StartStop started={inProgress} onStart={handleStart} onStop={handleStop} />
+
+     <Solution show={ !inProgress } solution={ solution } />
+
     </div>
   )
 }
