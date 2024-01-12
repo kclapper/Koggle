@@ -3,31 +3,17 @@ import { useState, useEffect, useCallback } from "react";
 import "bootstrap/scss/bootstrap.scss";
 
 import { Controller } from './controllers/Controller';
-import { RegularBoggle } from './controllers/RegularBoggle';
-import { BigBoggle } from './controllers/BigBoggle';
-import { AllEs } from './controllers/AllEs';
-
-import Countdown from './components/Countdown';
-import Board from './components/Board';
-import StartStop from './components/StartStop';
+import { getController, BoggleVariant } from "./settings/Settings";
 
 import { Solver } from './solver/Solver';
 
-import { BoggleVariant } from "./util";
-import { Solution } from "./components/Solution";
+import Solution from "./UI/Solution";
+import Countdown from './UI/Countdown';
+import Board from './UI/Board';
+import StartStop from './UI/StartStop';
+const alarmURL = new URL('./UI/assets/alarm.wav', import.meta.url) as any as string;
 
-function getController(variant: BoggleVariant): Controller {
-  switch (variant) {
-    case "4x4":
-      return RegularBoggle.getInstance();
-    case "5x5":
-      return BigBoggle.getInstance();
-    case "Es":
-      return AllEs.getInstance();
-  }
-}
-
-type BoggleProps = { variant?: BoggleVariant, controller: Controller }
+type BoggleProps = { variant?: BoggleVariant, controller?: Controller }
 export function Boggle({ variant = "4x4", controller = getController(variant) }: BoggleProps) {
   const [endTime, setEndTime] = useState(new Date());
   const [solution, setSolution] = useState<string[] | undefined>(undefined);
@@ -51,7 +37,7 @@ export function Boggle({ variant = "4x4", controller = getController(variant) }:
     const handler = (event: CustomEvent) => {
       setEndTime(event.detail.endTime);
 
-      const alarm = new Audio(new URL('./alarm.wav', import.meta.url) as any as string);
+      const alarm = new Audio(alarmURL);
       alarm.play();
     }
     controller.addEventListener('gameOver', handler);
@@ -73,14 +59,13 @@ export function Boggle({ variant = "4x4", controller = getController(variant) }:
 
   return (
     <div>
-     <Countdown endTime={ endTime }/>
+      <Countdown endTime={ endTime }/>
 
-     <Board letters={ controller.getBoard() } size={ controller.getSize() } />
+      <Board letters={ controller.getBoard() } size={ controller.getSize() } />
 
-     <StartStop started={inProgress} onStart={handleStart} onStop={handleStop} />
+      <StartStop started={inProgress} onStart={handleStart} onStop={handleStop} />
 
-     <Solution show={ !inProgress } solution={ solution } />
-
+      <Solution show={ !inProgress } solution={ solution } />
     </div>
   )
 }

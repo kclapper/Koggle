@@ -24,31 +24,6 @@ export class Letter {
     public getNeighbors(): Letter[] {
         return this.neighbors;
     }
-
-    //public getReachableStrings(): Set<string> {
-        //const reachableStrings = new Set<string>();
-        
-        //this.addReachableStrings("", reachableStrings);
-
-        //return reachableStrings;
-    //}
-
-    //private addReachableStrings(prefix: string, strings: Set<string>): void {
-        //if (this.visited) {
-            //return;
-        //}
-
-        //this.visited = true;
-
-        //const newPrefix = prefix + this.value;
-        //strings.add(newPrefix);
-
-        //for (const neighbor of this.neighbors) {
-            //neighbor.addReachableStrings(newPrefix, strings);
-        //}
-
-        //this.visited = false;
-    //}
 }
 
 export class Solver implements Solver {

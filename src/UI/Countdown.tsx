@@ -10,8 +10,7 @@ export default function CountDown({ endTime }: { endTime: Date }) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (msLeft > 0) {
-        const nextMs = msUntil(endTime);
-        setMsLeft(nextMs);
+        setMsLeft(msUntil(endTime));
       }
     }, 550);
 

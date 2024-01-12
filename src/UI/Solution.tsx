@@ -1,10 +1,5 @@
-import { useEffect, useState } from "react";
-
-import { Controller } from "../controllers/Controller";
-import { Solver } from "../solver/Solver";
-
 type SolutionProps = { show: boolean, solution?: string[] };
-export function Solution({ show, solution }: SolutionProps) {
+export default function Solution({ show, solution }: SolutionProps) {
     if (!show || solution === undefined) {
         return <div></div>;
     }
