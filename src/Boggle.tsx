@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 
 import "bootstrap/scss/bootstrap.scss";
 
-import { Controller } from './controllers/Controller';
+import { Controller, GameEvent } from './controllers/Controller';
 import { getController, BoggleVariant } from "./settings/Settings";
 
 import { Solver } from './solver/Solver';
@@ -11,7 +11,7 @@ import Solution from "./UI/Solution";
 import Countdown from './UI/Countdown';
 import Board from './UI/Board';
 import StartStop from './UI/StartStop';
-const alarmURL = new URL('./UI/assets/alarm.wav', import.meta.url) as any as string;
+const alarmURL = new URL('./UI/assets/alarm.wav', import.meta.url);
 
 type BoggleProps = { variant?: BoggleVariant, controller?: Controller }
 export function Boggle({ variant = "4x4", controller = getController(variant) }: BoggleProps) {
@@ -19,7 +19,7 @@ export function Boggle({ variant = "4x4", controller = getController(variant) }:
   const [solution, setSolution] = useState<string[] | undefined>(undefined);
 
   useEffect(() => {
-    const handler = (event: CustomEvent) => {
+    const handler = (event: GameEvent) => {
       setEndTime(event.detail.endTime);
       setSolution(new Solver(controller).possibleWords());
     }
@@ -34,10 +34,10 @@ export function Boggle({ variant = "4x4", controller = getController(variant) }:
   }, [controller, setEndTime, setSolution]);
 
   useEffect(() => {
-    const handler = (event: CustomEvent) => {
+    const handler = (event: GameEvent) => {
       setEndTime(event.detail.endTime);
 
-      const alarm = new Audio(alarmURL);
+      const alarm = new Audio(alarmURL.toString());
       alarm.play();
     }
     controller.addEventListener('gameOver', handler);

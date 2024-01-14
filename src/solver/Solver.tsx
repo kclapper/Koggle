@@ -1,12 +1,6 @@
 import { Controller } from "../controllers/Controller";
 import { getReachableWords, isWord } from "./Dictionary";
 
-export interface Solver {
-    constructor(game: Controller): Solver;
-    isWord(word: string): boolean;
-    possibleWords(): Iterable<string>;
-}
-
 export class Letter {
     public neighbors: Letter[] = [];
     public visited = false; 
@@ -26,7 +20,7 @@ export class Letter {
     }
 }
 
-export class Solver implements Solver {
+export class Solver {
     private words: Set<string>;
 
     constructor(game: Controller) {

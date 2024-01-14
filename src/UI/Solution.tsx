@@ -17,7 +17,7 @@ export default function Solution({ show, solution }: SolutionProps) {
         <div className="mt-4">
             <h6 className="display-6 text-center">Possible Words: { solution.length }</h6>
             <div className="text-center mb-2">
-                <a href="https://scrabble.merriam.com/" target="_blank" className="text-decoration-none text-center">
+                <a href="https://scrabble.merriam.com/" target="_blank" rel="noreferrer" className="text-decoration-none text-center">
                     Official Scrabble Dictionary
                 </a>
             </div>

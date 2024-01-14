@@ -52,6 +52,7 @@ for (const word of words) {
 }
 
 export function isWord(word: string): boolean {
+    word = word.toUpperCase();
     return isWordInNodes(word, dictionary);
 }
 
@@ -61,8 +62,9 @@ function isWordInNodes(word: string, nodes: Node[]): boolean {
 
     let nextNode;
     for (const node of nodes) {
-        if (node.letter = letter) {
+        if (node.letter === letter) {
             nextNode = node;
+            break;
         }
     }
 

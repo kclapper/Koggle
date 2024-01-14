@@ -2,7 +2,7 @@ import { useCallback } from "react";
 
 import Form from "react-bootstrap/Form";
 
-import { BoggleVariant } from "../../util";
+import { BoggleVariant } from "../../settings/Settings";
 
 type VariantSelectProps = { value: BoggleVariant, onChange: (newVariant: BoggleVariant) => void};
 export function VariantSelect({ value, onChange}: VariantSelectProps) {

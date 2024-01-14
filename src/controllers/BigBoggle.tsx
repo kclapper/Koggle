@@ -12,11 +12,11 @@ export class BigBoggle extends AbstractBoggle {
 
   public getSize() {
     return 5;
-  };
+  }
 
   public generateLetters() {
     const length = this.getSize() * this.getSize();
-    const letters = new Array(length);
+    const letters = new Array<string>(length);
 
     letters[0] = this.randomPick("ASFRYI");
     letters[1] = this.randomPick("MOTTTE");
@@ -45,9 +45,9 @@ export class BigBoggle extends AbstractBoggle {
     letters[24] = this.randomPick("GNNAME");
 
     for (let i = 0; i < length; i++) {
-      let j = Math.floor(Math.random() * length);
+      const j = Math.floor(Math.random() * length);
 
-      let temp = letters[i];
+      const temp = letters[i];
       letters[i] = letters[j];
       letters[j] = temp;
     }

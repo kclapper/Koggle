@@ -4,7 +4,7 @@ type BoardProps = { letters: string[], size: number };
 export default function Board({ letters, size }: BoardProps) {
   const letterSize = `${90 / size}vmin`;
 
-  let rows = [];
+  const rows = [];
   let currentRow = [];
 
   for (let i = 0; i < letters.length; i++ ) {

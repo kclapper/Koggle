@@ -1,14 +1,13 @@
-import React from 'react';
 import { useState, useCallback } from 'react';
 
 import OffCanvas from 'react-bootstrap/Offcanvas';
 const gearIconURL = new URL("../../../node_modules/bootstrap-icons/bootstrap-icons.svg", import.meta.url);
 
-import { BoggleVariant, Settings } from '../../settings/Settings';
+import { BoggleVariant, BoggleSettings } from '../../settings/Settings';
 
 import { VariantSelect } from './VariantSelect';
 
-type SettingsProps = { currentSettings: Settings, onChange: (newSettings: Settings) => void }
+type SettingsProps = { currentSettings: BoggleSettings, onChange: (newSettings: BoggleSettings) => void }
 export default function Settings({ currentSettings, onChange }: SettingsProps) {
   const [open, setOpen] = useState(false);
 
@@ -26,7 +25,7 @@ export default function Settings({ currentSettings, onChange }: SettingsProps) {
       <div className="flex-grow-1" />
       <button onClick={toggleOpen} className="btn" type="button">
         <svg className='bi' width='24' height='24' fill='grey' >
-          <use href={ gearIconURL + '#gear-wide-connected' }/>
+          <use href={ gearIconURL.toString() + '#gear-wide-connected' }/>
         </svg>
       </button>
 
