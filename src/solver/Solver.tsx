@@ -7,8 +7,18 @@ export class Letter {
 
     public readonly value: string;
 
-    constructor(letter: string) {
+    protected constructor(letter: string) {
         this.value = letter;
+    }
+
+    public static makeLetter(value: string) {
+        if (value.toUpperCase() === "QU") {
+            return new Qu();
+        }
+        if (value.length !== 1) {
+            throw new Error("Invalid letter block value");
+        }
+        return new Letter(value);
     }
 
     public addNeighbor(neighbor: Letter): void {
@@ -17,6 +27,20 @@ export class Letter {
 
     public getNeighbors(): Letter[] {
         return this.neighbors;
+    }
+}
+
+class Qu extends Letter {
+    private U: Letter;
+
+    constructor() {
+        super("Q");
+        this.U = new Letter("U");
+        this.neighbors.push(this.U);
+    }
+
+    public override addNeighbor(neighbor: Letter): void {
+        this.U.addNeighbor(neighbor);   
     }
 }
 
@@ -29,7 +53,7 @@ export class Solver {
         const blocks = game.getBoard();
         const length = size * size;
 
-        const letters = blocks.map((block) => new Letter(block));
+        const letters = blocks.map((block) => Letter.makeLetter(block));
 
         const rowMajor = (row: number, column: number) => (size * row) + column;
         const inBounds = (row: number, column: number) => {

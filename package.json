@@ -1,6 +1,6 @@
 {
   "name": "koggle",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Boggle as a React component",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "type": "module",
