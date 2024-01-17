@@ -84,7 +84,6 @@ describe('Test Solver', () => {
 
     const solver = new Solver(boggle);
     const solution = solver.possibleWords();
-    console.log(solution);
 
     expect(solution.length).toBe(5);
 

@@ -17,25 +17,36 @@ type BoggleProps = { variant?: BoggleVariant, controller?: Controller }
 export function Boggle({ variant = "4x4", controller = getController(variant) }: BoggleProps) {
   const [endTime, setEndTime] = useState(new Date());
   const [solution, setSolution] = useState<string[] | undefined>(undefined);
+  const [inProgress, setInProgress] = useState(false);
 
   useEffect(() => {
     const handler = (event: GameEvent) => {
+      setInProgress(true);
       setEndTime(event.detail.endTime);
       setSolution(new Solver(controller).possibleWords());
     }
     controller.addEventListener('gameStart', handler);
-    controller.addEventListener('gameStop', handler);
 
     return () => {
-      setSolution(undefined);
       controller.removeEventListener('gameStart', handler);
-      controller.removeEventListener('gameStop', handler);
     }
-  }, [controller, setEndTime, setSolution]);
+  }, [controller, setEndTime, setSolution, setInProgress]);
 
   useEffect(() => {
     const handler = (event: GameEvent) => {
+      setInProgress(false);
       setEndTime(event.detail.endTime);
+    }
+    controller.addEventListener('gameStop', handler);
+
+    return () => {
+      controller.removeEventListener('gameStop', handler);
+    }
+  }, [controller, setEndTime, setInProgress]);
+
+  useEffect(() => {
+    const handler = () => {
+      setInProgress(false);
 
       const alarm = new Audio(alarmURL.toString());
       alarm.play();
@@ -45,7 +56,7 @@ export function Boggle({ variant = "4x4", controller = getController(variant) }:
     return () => {
       controller.removeEventListener('gameOver', handler);
     }
-  }, [controller, setEndTime]);
+  }, [controller, setInProgress]);
 
   const handleStart = useCallback(() => {
     controller.startGame();
@@ -55,15 +66,13 @@ export function Boggle({ variant = "4x4", controller = getController(variant) }:
     controller.stopGame();
   }, [controller]);
 
-  const inProgress = endTime > new Date();
-
   return (
     <div>
       <Countdown endTime={ endTime }/>
 
       <Board letters={ controller.getBoard() } size={ controller.getSize() } />
 
-      <StartStop started={inProgress} onStart={handleStart} onStop={handleStop} />
+      <StartStop started={ inProgress } onStart={ handleStart } onStop={ handleStop } />
 
       <Solution show={ !inProgress } solution={ solution } />
     </div>
