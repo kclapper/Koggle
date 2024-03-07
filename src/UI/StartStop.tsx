@@ -12,7 +12,7 @@ export default function StartStop({ started, onStart, onStop }: StartStopProps) 
     onStop();
   }, [onStop]);
 
-  const startButton = <Button onClick={handleStart} size="lg" variant='primary'>
+  const startButton = <Button onClick={handleStart} size="lg">
                         Start
                       </Button>
 

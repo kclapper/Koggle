@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-// import "bootstrap/scss/bootstrap.scss";
-import "./Boggle.scss";
+import "bootstrap/scss/bootstrap.scss";
 
 import { Controller, GameEvent } from './controllers/Controller';
 import { getController, BoggleVariant } from "./settings/Settings";
