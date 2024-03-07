@@ -1,10 +1,10 @@
-# [Koggle](https://boggle.kyleclapper.com)
+# [Koggle](https://boggle.kyleclapper.dev)
 
 [![Test](https://github.com/kclapper/Koggle/actions/workflows/test.yml/badge.svg)](https://github.com/kclapper/Koggle/actions/workflows/test.yml)
 
 A React Boggle game component. This package was created so I can
 share Boggle across my React projects. A demonstration can be 
-found at [my boggle site](https://boggle.kyleclapper.com).
+found at [my boggle site](https://boggle.kyleclapper.dev).
 
 ## Features
 - 4x4 and 5x5 Boggle gameplay
